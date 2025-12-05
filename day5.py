@@ -33,7 +33,13 @@ def check_id_in_ranges(ids, ranges):
 # Cleaner function
 @timeit
 def check_id_in_ranges_2(ids, ranges):
-    return sum(any(start <= item_id <= end for start, end in ranges) for item_id in ids)
+    count = 0
+    for item_id in ids:
+        for start, end in ranges:
+            if start <= item_id <= end:
+                count += 1
+                break  # Stop checking once we find a match
+    return count
 
 print(f'Part 1 Solution: {check_id_in_ranges_2(ids, ranges)}')
 
@@ -58,9 +64,9 @@ def consolidate_ranges(intervals: List[List[int]]) -> List[List[int]]:
 @timeit
 def count_range_size(ranges):
     total_size = 0
-    for range in ranges:
-        size = range[1]+1-range[0]
-        total_size = total_size + size
+    for start, end in ranges:
+        include_end = end + 1
+        total_size = total_size + (include_end - start)
     return(total_size)
 
 ranges = (consolidate_ranges(ranges))
