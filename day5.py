@@ -30,7 +30,12 @@ def check_id_in_ranges(ids, ranges):
             count += 1
     return(count)
 
-print(f'Part 1 Solution: {check_id_in_ranges(ids, ranges)}')
+# Cleaner function
+@timeit
+def check_id_in_ranges_2(ids, ranges):
+    return sum(any(start <= item_id <= end for start, end in ranges) for item_id in ids)
+
+print(f'Part 1 Solution: {check_id_in_ranges_2(ids, ranges)}')
 
 # Part 2
 @timeit
